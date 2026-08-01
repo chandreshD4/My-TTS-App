@@ -10,33 +10,21 @@ class TTSPage extends StatefulWidget {
 
 class _TTSPageState extends State<TTSPage> {
   final FlutterTts flutterTts = FlutterTts();
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    initTts();
-  }
-
-  initTts() async {
-    // यहाँ हम Google का सबसे अच्छा इंजन सेट करने की कोशिश कर रहे हैं
-    await flutterTts.setLanguage("hi-IN");
-    await flutterTts.setEngine("com.google.android.tts"); 
-    await flutterTts.setSpeechRate(0.5);
-  }
+  final TextEditingController controller = TextEditingController();
 
   speak() async {
-    await flutterTts.speak(_controller.text);
+    await flutterTts.setLanguage("hi-IN");
+    await flutterTts.speak(controller.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Professional TTS")),
+      appBar: AppBar(title: Text("TTS App")),
       body: Column(
         children: [
-          TextField(controller: _controller, maxLines: 5),
-          ElevatedButton(onPressed: speak, child: Text("सुनें")),
+          TextField(controller: controller),
+          ElevatedButton(onPressed: speak, child: Text("सुनें"))
         ],
       ),
     );
