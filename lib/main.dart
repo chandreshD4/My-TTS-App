@@ -18,14 +18,13 @@ class _TTSPageState extends State<TTSPage> {
     setupVoice();
   }
 
-  setupVoice() async {
-    // यह कमांड फोन के सबसे नेचुरल वॉइस इंजन को ढूंढकर उसे सेट करेगा
+   setupVoice() async {
     await flutterTts.setLanguage("hi-IN");
     await flutterTts.setSpeechRate(0.5);
     await flutterTts.setPitch(1.0);
-    // यह लाइन सबसे जरूरी है:
-    await flutterTts.setIosAudioCategory(IosTextToSpeechAudioCategory.playback, IosTextToSpeechAudioMode.voicePrompt);
+    // वह 'IosAudioCategory' वाली लाइन हमने यहाँ से हटा दी है
   }
+
 
   speak() async {
     await flutterTts.speak(controller.text);
