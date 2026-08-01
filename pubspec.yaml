@@ -1,15 +1,14 @@
 name: my_tts_app
-description: A new Flutter project.
-publish_to: 'none'
+description: High Quality AI TTS
 version: 1.0.0+1
-
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_tts: ^4.0.2
+  # यह प्लगइन AI वॉइस को प्रोसेस करेगा
+  piper_tts: ^0.1.0 
 
 flutter:
   uses-material-design: true
