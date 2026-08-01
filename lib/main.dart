@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piper_tts/piper_tts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() => runApp(MaterialApp(home: TTSPage()));
 
@@ -9,28 +9,34 @@ class TTSPage extends StatefulWidget {
 }
 
 class _TTSPageState extends State<TTSPage> {
-  final PiperTts _piperTts = PiperTts();
+  final FlutterTts flutterTts = FlutterTts();
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // यहाँ हम एसेट वाली उस नेचुरल फाइल को लोड कर रहे हैं
-    _piperTts.loadModel(assetPath: 'assets/hindi_voice.onnx');
+    initTts();
   }
 
-  void _speak() {
-    _piperTts.speak(_controller.text);
+  initTts() async {
+    // यहाँ हम Google का सबसे अच्छा इंजन सेट करने की कोशिश कर रहे हैं
+    await flutterTts.setLanguage("hi-IN");
+    await flutterTts.setEngine("com.google.android.tts"); 
+    await flutterTts.setSpeechRate(0.5);
+  }
+
+  speak() async {
+    await flutterTts.speak(_controller.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("AI Natural Voice App")),
+      appBar: AppBar(title: Text("Professional TTS")),
       body: Column(
         children: [
           TextField(controller: _controller, maxLines: 5),
-          ElevatedButton(onPressed: _speak, child: Text("नेचुरल आवाज़ में सुनें")),
+          ElevatedButton(onPressed: speak, child: Text("सुनें")),
         ],
       ),
     );
