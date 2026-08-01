@@ -12,34 +12,24 @@ class _TTSPageState extends State<TTSPage> {
   final FlutterTts flutterTts = FlutterTts();
   final TextEditingController controller = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    setupVoice();
-  }
-
-   setupVoice() async {
-    await flutterTts.setLanguage("hi-IN");
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.setPitch(1.0);
-    // वह 'IosAudioCategory' वाली लाइन हमने यहाँ से हटा दी है
-  }
-
-
   speak() async {
+    // यह लाइन सीधे Google के 'Neural' इंजन को कॉल करती है
+    await flutterTts.setLanguage("hi-IN");
+    await flutterTts.setVoice({"name": "hi-in-x-hcm-network", "locale": "hi-IN"});
     await flutterTts.speak(controller.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("AI Natural TTS")),
+      appBar: AppBar(title: Text("Natural AI Voice")),
       body: Column(
         children: [
           TextField(controller: controller, maxLines: 5),
-          ElevatedButton(onPressed: speak, child: Text("नेचुरल आवाज़ में सुनें"))
+          ElevatedButton(onPressed: speak, child: Text("नेचुरल सुनें")),
         ],
       ),
     );
   }
 }
+
